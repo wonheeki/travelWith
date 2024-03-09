@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/main.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="nav">
+        <div class="logo"><a href="/">TravelWith</a></div>
+        <div class="menu">
+            <div class="li"><a href="/">Home</a></div>
+            <div class="li"><a href="#">About</a></div>
+            <div class="li"><a href="board.go">Community</a></div>
+            <th:block th:if="${loginMember}">
+                <div class="li"><a href="mypage.update.go">Mypage</a></div>
+                <a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+                </script>
+            </th:block>
+            <th:block th:unless="${loginMember}">
+                <a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div class="main_wrapper">
+    <div class="main1">
+        <th:block th:if="${loginMember}">
+            <div class="main_content">
+                <div class="main_emp">
+                    Community<br>to get<br>travel information
+                </div>
+                <div class="main_sub" >
+                    <p><span th:text="${loginMember.u_nickname}"></span>, welcome to <span class="sub_span">TravelWith!</span></p>
+                    <p>You can <span class="sub_span">post your photo</span> on the album and <span class="sub_span">communicate with other users.</span></p>
+                    <p>Share travel information and make friends on <span class="sub_span">TravelWith.</span></p>
+                </div>
+            </div>
+            <div class="main_img">
+                <img src="/img/main.png">
+            </div>
+        </th:block>
+        <th:block th:unless="${loginMember}">
+            <div class="main_content">
+                <div class="main_emp">
+                    Community<br>to get<br>travel information
+                </div>
+                <div class="main_sub">Sign up now if you don't have an account yet.</div>
+                <a href="signup.go"><div class="signup_btn">Get started</div></a>
+            </div>
+            <div class="main_img">
+                <img src="/img/main.png">
+            </div>
+        </th:block>
+        <div class="feature_emp">Features</div>
+
+        <div class="feature_sub">Quickly and conveniently share a variety of information with many users.<br>
+
+        </div>
+        <div class="feature_ul">
+            <div class="feature_li">
+                <img class="pic" src="/img/pic6.png"><br>
+                <br><br>
+                <div class="fe_h2">빠르고 간편하게</div>
+                <div class="fe_h5">다른사이트들보다<br>빠르고 간편하게 제작되었습니다.</div>
+            </div>
+            <div class="feature_li">
+                <img class="pic" src="/img/pic5.png"><br><br>
+                <div class="fe_h2">다양한 정보들을</div>
+                <div class="fe_h5">다양한 게시판을 통해 <br>양질의 정보를 공유하세요.</div>
+            </div>
+            <div class="feature_li">
+                <img class="pic" src="/img/pic3.png"><br><br>
+                <div class="fe_h2">수많은 사용자들과</div>
+                <div class="fe_h5">각기 다른 스타일의 여행 경험을 공유하며<br> 자신만의 여행 스타일을 찾을 수 있습니다.</div>
+            </div>
+            <div class="feature_li">
+                <img class="pic" src="/img/pic7.png"><br><br>
+                <div class="fe_h2">공유해보세요</div>
+                <div class="fe_h5">다른 유저들과 <br>여행의 추억을 공유할 수 있습니다.</div>
+            </div>
+        </div>
+
+
+        <div class="slider_emp">Make a travel mate in TravelWith!</div>
+        <div class="slider_sub">Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Mauris ac tristique magna. <br>Suspendisse potenti.
+            Cras pretium.</div>
+        <div class="slider">
+            <img class="slide1" src="/img/slide3.png" >
+            <img class="slide1" src="/img/slide1.png" >
+            <img class="slide1" src="/img/slide2.png" >
+        </div>
+
+        <div class="news_emp">News letter service</div>
+        <div class="news_sub">Sign up now if you don't have an account yet.</div>
+        <div class="news_letter">
+            Your email address <div class="letter_btn"><img src="/img/email.png"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer_logo">TravelWith</div>
+        <div class="footer_sns">
+            <div class="sns_ul">
+                <div class="sns_li"><img src="/img/facebook.png"></div>
+                <div class="sns_li"><img src="/img/insta.png"></div>
+                <div class="sns_li"><img src="/img/twitter.png"></div>
+            </div>
+            <hr class="f_hr">
+        </div>
+        Copyright 2023. TRAVELWITH All rights reserved.
+    </div>
+</div>
+</body>
+</html>

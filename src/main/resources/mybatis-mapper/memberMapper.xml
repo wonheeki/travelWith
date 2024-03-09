@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="codingon.travelwith.mapper.MemberMapper">
+    <!-- 회원가입 -->
+    <insert id="signMember" parameterType="codingon.travelwith.domain.Member">
+        insert into tw_member values(#{u_id}, #{u_pw}, #{u_nickname}, #{u_email}, #{u_addr})
+    </insert>
+    <!-- 중복체크에 쓸 정보불러오기 -->
+    <select id="getMemberByNickname" parameterType="codingon.travelwith.domain.Member" resultType="codingon.travelwith.domain.Member">
+        select * from tw_member where u_nickname = #{u_nickname}
+    </select>
+    <select id="getMemberById" parameterType="codingon.travelwith.domain.Member" resultType="codingon.travelwith.domain.Member">
+        select * from tw_member where u_id = #{u_id}
+    </select>
+    <!-- 아이디 찾기 (닉네임,이메일을 통해) -->
+    <select id="findMemberID" parameterType="codingon.travelwith.domain.Member" resultType="codingon.travelwith.domain.Member">
+        select u_id from tw_member where u_nickname = #{u_nickname} and u_email=#{u_email}
+    </select>
+    <!-- 비밀번호 찾기 (아이디,이메일을 통해) -->
+    <select id="findMemberPW" parameterType="codingon.travelwith.domain.Member" resultType="codingon.travelwith.domain.Member">
+        select u_pw from tw_member where u_id=#{u_id} and u_email=#{u_email}
+    </select>
+    <!-- 회원정보 수정 -->
+    <update id="updateMember" parameterType="codingon.travelwith.domain.Member">
+        update tw_member set u_pw = #{u_pw}, u_nickname=#{u_nickname}, u_email=#{u_email}, u_addr = #{u_addr} where u_id = #{u_id}
+    </update>
+    <!-- 회원 탈퇴 -->
+    <delete id="deleteMember" parameterType="codingon.travelwith.domain.Member">
+        delete from tw_member where u_id = #{u_id}
+    </delete>
+</mapper>

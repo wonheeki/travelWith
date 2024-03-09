@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/js/ValidCheck.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/board.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="nav">
+        <div class="logo"><a href="/">TravelWith</a></div>
+        <div class="menu">
+            <div class="li"><a href="/">Home</a></div>
+            <div class="li"><a href="#">About</a></div>
+            <div class="li"><a href="board.go">Community</a></div>
+            <th:block th:if="${loginMember}">
+                <div class="li"><a href="mypage.update.go">Mypage</a></div>
+                <a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+                </script>
+            </th:block>
+            <th:block th:unless="${loginMember}">
+                <a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div class="login_wrapper">
+    <div class="bw_wrap">
+        <div class="board_title">글수정</div>
+        <div class="board_write_wrap" th:each="board : ${c1}">
+            <form th:action="@{'board.update?b_no=' + ${board.b_no}}" method="post" enctype="multipart/form-data">
+                <input name="token" th:value="${token}" type="hidden">
+                <div class="board_write">
+                    <div class="title">
+                        <dl>
+                            <dt>제목</dt>
+                            <dd><input type="text" th:value="${board.b_title}" name="b_title"></dd>
+                        </dl>
+                    </div>
+                    <div class="info">
+                        <dl>
+                            <dt>작성자</dt>
+                            <dd th:text="${sessionScope.loginMember.u_id}"></dd>
+                        </dl>
+                    </div>
+                    <div class="fileBox">
+                        <dl>
+                            <dt>파일업로드</dt>
+                            <dd>
+                                <input class="uploadName" th:value="${board.b_photo}" placeholder="파일을 선택하세요">
+                                <input id="b_photo" name="b_photo" type="file">
+                                <label for="b_photo">파일찾기</label>
+                            </dd>
+                            <dt>카테고리</dt>
+                            <dd>
+                                <select name="b_category" id="b_category">
+                                    <option th:value="${board.b_category}" th:selected="selected"
+                                            th:text="${board.b_category}"></option>
+                                    <optgroup label="지역별">
+                                        <option value="서울">서울</option>
+                                        <option value="수도권">수도권</option>
+                                        <option value="강원도">강원도</option>
+                                        <option value="충청도">충청도</option>
+                                        <option value="경상도">경상도</option>
+                                        <option value="전라도">전라도</option>
+                                        <option value="제주도">제주도</option>
+                                    </optgroup>
+                                    <optgroup label="기타">
+                                        <option value="여행사진">여행사진</option>
+                                    </optgroup>
+                                </select>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="cont">
+                        <textarea name="b_txt" th:text="${board.b_txt}"></textarea>
+                    </div>
+                </div>
+                <div class="bt_wrap">
+                    <button id="update_btn">확인</button>
+                    <a th:href="@{/board.go}">목록</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

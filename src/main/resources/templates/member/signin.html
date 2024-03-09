@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="nav">
+        <div class="logo"><a href="/">TravelWith</a></div>
+        <div class="menu">
+            <div class="li"><a href="/">Home</a></div>
+            <div class="li"><a href="#">About</a></div>
+            <div class="li"><a href="board.go">Community</a></div>
+            <th:block th:if="${loginMember}">
+                <div class="li"><a href="mypage.update.go">Mypage</a></div>
+                <a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+                </script>
+            </th:block>
+            <th:block th:unless="${loginMember}">
+                <a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div class="login_wrapper">
+    <form id="login_form" method="POST" action="member.login" onsubmit="return frm_check();">
+        <div class="title">LOGIN</div>
+        <input class="login_input" placeholder="ID" name="u_id" id="logId">
+        <input type="password" class="login_input" placeholder="PW" name="u_pw">
+        <div class="extra_btn">
+            <input type="checkbox" class="save_id" name="checkId" id="saveId">
+            <label for="saveId">Remember me</label>
+        </div>
+        <button class="login_btn" type="submit">Login</button>
+        <div class="find_grp">
+            <a class="find_btn" href="member.findID">Find ID</a> &emsp;|&emsp;<a
+                class="find_btn" href="member.findPW">Find PW</a> &emsp;|&emsp;<a
+                class="find_btn" href="register.go">Sign up</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+/* @CHARSET "UTF-8";
+
+html {
+	background-color: #fbfbf9;
+}
+
+* {
+	text-align: center;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #333;
+	font-family: Pretendard;
+	font-size: xx-large;
+}
+
+#canvas {
+	z-index: 10;
+	pointer-event: none;
+	position: fixed;
+	top: 0;
+	transform: scale(1.1);
+}
+
+.reImg {
+	width: 500px;
+}
+
+.rebtn {
+	width: 20vw;
+	height: 2.5vw;
+	font-size: 1vw;
+	background-color: #f36a8d;
+	color: #fff;
+	border-radius: 10px;
+	border: none;
+	padding: 0 0.5vw;
+	font-weight: 600;
+}
+
+아디찾기 비번찾기
+
+ul {
+	list-style: none;
+	padding-left: 0px;
+}
+
+.input--text {
+	height: 34px;
+	padding: 0 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-sizing: border-box;
+	outline: none;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+	font-size: 16px;
+}
+
+.input--text:focus {
+	border-color: #51a7e8;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px
+		rgba(81, 167, 232, 0.5);
+}
+
+Vendor Prefix(브라우저 업체별 접두사)
+.input--text::-webkit-input-placeholder {
+	color: #A9A9A9;
+}
+
+.input--text::-ms-input-placeholder {
+	color: #A9A9A9;
+}
+
+.input--text::-moz-input-placeholder {
+	color: #A9A9A9;
+}
+ */

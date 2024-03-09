@@ -1,0 +1,585 @@
+@charset "UTF-8";
+html {
+	background-color: #fbfbf9;
+}
+
+body{
+	margin:0;
+	padding:0;
+	color:#333;
+	font-family: Pretendard;
+}
+
+@font-face { /* 애플산돌고딕 폰트 적용 */
+	font-family: "EF";
+	src: url("font/EF_jejudoldam.ttf") format("truetype");
+	font-weight: normal;
+}
+
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 300;
+    font-style: normal;
+	src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff') format('woff');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 600;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff') format('woff');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 800;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff') format('woff');
+    font-display: swap;
+}
+
+
+
+.nav {
+	position: fixed;
+    width: 100%;
+    height: 5rem;
+    z-index: 2000;
+	
+}
+
+.logo {
+	position: absolute;
+	font-family: "EF";
+	top: 2rem;
+	font-size: 2vw;
+	left: 15%;
+}
+.logo a{
+	text-decoration: none;
+	color:#333;
+}
+
+.menu {
+	position: absolute;
+	top: 2rem;
+	right: 15%;
+	font-family:Pretendard;
+}
+
+.li {
+	float: left;
+	margin-left: 2rem;
+    line-height: 2.1;
+    font-size: 1vw;
+}
+
+.li a{
+	text-decoration: none;
+	color:#333;
+}
+
+.li a:hover{
+	color:#f36a8d;
+}
+
+#signin_btn {
+	background-color: #fafaf7;
+    box-shadow: 0px 4px 3px 0px rgb(204 204 204 / 51%);
+    color: #000000;
+    border-radius: 30px;
+    text-align: center;
+    width: 10vw;
+    height: 2.2vw;
+    border: 1px solid rgb(204 204 204 / 51%);
+    /* top: 50%; */
+    /* transform: translate(0, -0.1rem); */
+}
+#signin_btn:hover {
+	background-color: #f36a8d;
+	color: #fff;
+    /* border: 1px solid #fff083; */
+    /* top: 50%; */
+    /* transform: translate(0, -0.1rem); */
+}
+
+/* 로그아웃 버튼 css추가함!!! */
+#logout_btn {
+	background-color: #fafaf7;
+    box-shadow: 0px 4px 3px 0px rgb(204 204 204 / 51%);
+    color: #000000;
+    border-radius: 30px;
+    text-align: center;
+    width: 10vw;
+    height: 2.2vw;
+    border: 1px solid rgb(204 204 204 / 51%);
+    /* top: 50%; */
+    /* transform: translate(0, -0.1rem); */
+}
+#logout_btn:hover {
+	background-color: #f36a8d;
+	color: #fff;
+    /* border: 1px solid #fff083; */
+    /* top: 50%; */
+    /* transform: translate(0, -0.1rem); */
+}
+
+.main_wrapper{
+	position:absolute;
+	top:0;
+	width: 100%;
+    height: 155vw;
+    z-index: 1000;
+    background-image: url("../img/back.png");
+    background-size:100%;
+}
+
+.wrapper{
+	height:100%;
+}
+.main_content{
+	position: absolute;
+    left: 15%;
+    float: left;
+    z-index: 1500;
+    top: 18vw;
+}
+
+.main_content a{
+	text-decoration: none;
+}
+
+.main_emp{
+	font-family: Pretendard;
+    font-size: 3.8vw;
+    letter-spacing: 2px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom:2vw;
+}
+.main_sub{
+	font-family: Pretendard;
+    font-size: 1vw;
+    letter-spacing: 1px;
+    color: #a0a0a0;
+}
+
+.sub_span {
+  position: relative;
+  color: #a0a0a0;
+  line-height:1.5;
+}
+
+.sub_span::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0.7vw;
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  background: #f36a8d3b;
+}
+	
+
+p:hover .sub_span::after {
+  width: 100%;
+  transition: width .4s;
+  color:black;
+}
+
+.signup_btn{
+	font-family:Pretendard;
+	color:#fff;
+	font-size:1.5vw;
+	width:9vw;
+	height:3vw;
+	line-height:2;
+	padding-left: 1vw;
+	font-weight:500;
+    margin-top: 0.5vw;
+    background-color: #f36a8d;
+    box-shadow: 0px 4px 3px 0px rgb(204 204 204 / 51%);
+}
+
+.main_img img{
+	position:absolute;
+	right:15%;
+	float:left;
+	width:35vw;
+	top:14vw;
+}
+.main1{
+	position:absolute;
+	/* top:47vw; */
+	width:100%;
+/* 	height:100%; */
+}
+.feature_emp{
+	position:absolute;
+	left:15%;
+	font-size:2.5vw;
+	top:47vw;
+}
+.feature_sub{
+	position:absolute;
+	left:15%;
+	top:50vw;
+	color:#a0a0a0;
+	font-size:1vw;
+	letter-spacing: 1px;
+}
+.feature_ul{
+	width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    top:54vw;
+}
+
+.feature_li{
+	width: 25%;
+    height: 20vw;
+    text-align: center;
+    /* margin: 0 1.6rem; */
+    /*border: 1px solid; */
+}
+.slide1{
+	width:70%;
+}
+
+.slider{
+	display: flex;
+	justify-content: center;
+	position:relative;
+	top:69vw;
+}
+
+.slider_emp{
+	position:absolute;
+	font-size:2.5vw;
+	left:15%;
+	top:82vw;
+}
+
+.slider_sub{
+	position: absolute;
+    top: 3rem;
+    color: #a0a0a0;
+    left: 15%;
+    top: 85vw;
+    font-size:1vw;
+    letter-spacing: 1px;
+}
+
+
+.news_emp{
+	position:absolute;
+	left:15%;
+	font-size:2.5vw;
+	top:123vw;
+}
+.news_sub{
+	position:absolute;
+	left:15%;
+	top:126vw;
+	color:#a0a0a0;
+	font-size:1vw;
+	letter-spacing: 1px;
+}
+
+.news_letter{
+	position:relative;
+	top:82vw;	
+	width: 66%;
+	height: 5vw;
+    margin: 0 auto;
+    text-align: left;
+    background-color: #fafaf7;
+    box-shadow: 0px 4px 3px 0px rgb(204 204 204 / 51%);
+    border-radius: 50px;
+    border: 1px solid rgb(204 204 204 / 51%);
+    font-size: 1.5vw;
+    color: #a0a0a0;
+    line-height: 3.3;
+    font-weight: 500;
+    padding-left:4vw;
+}
+
+.letter_btn{
+	float: right;
+    width: 9vw;
+    height: 100%;
+    background-color: #f36a8d;
+    border-radius: 70px;
+    line-height: 4.5;
+    padding-left: 6vw;
+	
+}
+
+.letter_btn img{
+	width: 2.5vw;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer{
+	position: absolute;
+	bottom:1vw;
+	color:#a0a0a0;
+	width:100%;
+	font-size:1vw;
+	text-align: center;
+}
+.footer_logo{
+	font-family: "EF";
+	color:#a0a0a0;
+	text-align: center;
+	font-size:1.5vw;
+	margin-bottom:1vw;
+}
+.sns_ul{
+	margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+.sns_li{
+	filter: invert(0.3);
+}
+.sns_li img{
+	width:3vw;
+	margin: 0 0.5vw;
+}
+.f_hr{
+	width:90%;
+	border:0;
+	/* border: 0.1px solid #c6c6c6; */
+	margin: 1vw auto;
+}
+
+
+
+
+
+
+/* login.jsp css */
+
+.login_wrapper{
+	width:100%;
+	height:100%;
+	background-image: url("../img/back2.png");
+    background-size:100%;
+    position:absolute;
+}
+
+#login_form{
+	position:absolute;
+	top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    left: 50%;
+    width:25%;
+}
+
+
+.title{
+	font-size:2vw;
+	margin-bottom:2vw;
+	font-weight:500;
+}
+.login_input{
+	width: 92%;
+    height: 2.5vw;
+    font-size: 1vw;
+    background-color: #e9e9e9;
+    margin-bottom:0.5vw;
+    border-radius:10px;
+    padding:0 1vw;
+    border:none;
+    text-align: left;
+}
+
+.login_input:focus {
+	outline: 2px solid #999;
+} 
+
+.login_btn{
+	width: 100%;
+    height: 2.5vw;
+    font-size: 1vw;
+    background-color: #f36a8d;
+    color:#fff;
+    border-radius:10px;
+    border:none;
+    padding:0 0.5vw;
+    font-weight:600;
+}
+
+
+.find_grp{
+	color:#a0a0a0;
+	font-size:1vw;
+	margin-top: 1.5vw;
+}
+
+.find_btn{
+	text-decoration: none;
+	color:#a0a0a0;
+}
+.extra_btn{
+	color:#a0a0a0;
+	font-size:1vw;
+	text-align: left;
+	margin-bottom: 0.5vw;
+}
+
+
+
+
+
+
+
+/* findId.jsp, findPw.jsp, result.jsp css */
+.find_input{
+	width: 92%;
+    height: 2.5vw;
+    font-size: 1vw;
+    background-color: #e9e9e9;
+    margin-bottom:0.5vw;
+    border-radius:10px;
+    padding:0 1vw;
+    border:none;
+    text-align: left;
+}
+.reImg {
+	width: 25vw;
+}
+
+.rebtn {
+	width: 20vw;
+	height: 2.5vw;
+	font-size: 1vw;
+	background-color: #f36a8d;
+	color: #fff;
+	border-radius: 10px;
+	border: none;
+	padding: 0 0.5vw;
+	font-weight: 600;
+	    font-family: 'Pretendard';
+    margin-top: 1vw;
+}
+
+
+.find_form{
+	position:absolute;
+	top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    left: 50%;
+    width:25%;
+}
+
+
+
+/* signup.jsp css */
+#signup_form{
+	position:absolute;
+	top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    left: 50%;
+    width:25%;
+}
+
+.title{
+	font-size:2vw;
+	margin-bottom:2vw;
+}
+.signup_input{
+	width: 92%;
+    height: 2.5vw;
+    font-size: 1vw;
+    font-family:pretendard;
+    background-color: #e9e9e9;
+    margin-bottom:0.5vw;
+    border-radius:10px;
+    padding:0 1vw;
+    border:none;
+}
+
+.signup_input:focus {
+	outline: 2px solid #999;
+} 
+
+.register_btn{
+	width: 100%;
+    height: 2.5vw;
+    font-size: 1vw;
+    background-color: #f36a8d;
+    color:#fff;
+    border-radius:10px;
+    border:none;
+    padding:0 0.5vw;
+    font-weight:600;
+    margin-bottom: 0.5vw;
+    font-family:'Pretendard';
+}
+/* 추가해야하는 부분 */
+.delete_btn{
+	color: gray;
+}
+
+.pic{
+	width: 75%;
+    
+}
+
+.fe_h2{
+	font-size: 1.5vw;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 0.5vw;
+}
+
+.fe_h5{
+	font-size: 1vw;
+    color: #777;
+    line-height:1.5;
+}
+
+
+#info_form{
+	position: absolute;
+    /* top: 50%; */
+    transform: translate(-50%,0);
+    text-align: center;
+    left: 50%;
+    width: 50%;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="wrapper">
+	<div class="nav">
+		<div class="logo"><a href="/">TravelWith</a></div>
+		<div class="menu">
+			<div class="li"><a href="/">Home</a></div>
+			<div class="li"><a href="#">About</a></div>
+			<div class="li"><a href="board.go">Community</a></div>
+			<th:block th:if="${loginMember}">
+				<div class="li"><a href="mypage.update.go">Mypage</a></div>
+				<a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+				<script type="text/javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+				</script>
+			</th:block>
+			<th:block th:unless="${loginMember}">
+				<a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+			</th:block>
+		</div>
+	</div>
+</div>
+	<div class="login_wrapper">
+		<div class="mypage">
+			<div class="board_title">My Page</div>
+			<a href="mypage.update.go"><div class="outer">회원정보 수정</div></a>
+			<a href="mypage.post.go"><div class="outer">게시글 관리</div></a>
+			<a href="mypage.photo.go"><div class="outer hpoint">사진첩 관리</div></a>
+		</div>
+		<div class="board_wrap">
+			<div class="board_list_wrap">
+					<th:block th:if="${count ==0}">
+						<div class="no_post">글이 없습니다.</div>
+					</th:block>
+					<th:block th:unless="${count ==0}">
+						<th:block th:each ="b :${mymsgs }">
+							<div class="photo_list">
+								<div class="photo_li">
+									<a href="board.view.go?b_no=${b.b_no }"><div class="photo_img"><img class="photo" src="/img/${b.b_photo}"></div></a>
+									<div class="photo_title">${b.b_title}</div>
+									<div class="photo_writer">${b.b_writer}</div>
+								</div>
+							</div>
+						</th:block>
+						<div class="space_3vw"></div>
+					</th:block>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/board.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="nav">
+        <div class="logo"><a href="/">TravelWith</a></div>
+        <div class="menu">
+            <div class="li"><a href="/">Home</a></div>
+            <div class="li"><a href="#">About</a></div>
+            <div class="li"><a href="board.go">Community</a></div>
+            <th:block th:if="${loginMember}">
+                <div class="li"><a href="mypage.update.go">Mypage</a></div>
+                <a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+                </script>
+            </th:block>
+            <th:block th:unless="${loginMember}">
+                <a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div class="login_wrapper">
+    <div class="category">
+        <div class="board_title">Community</div>
+        <a th:href="@{/board.go}"><div class="outer">전체</div></a>
+        <a th:href="@{/seoul.go}"><div class="inner">서울</div></a>
+        <a th:href="@{/cap.go}"><div class="inner">수도권</div></a>
+        <a th:href="@{/gang.go}"><div class="inner">강원도</div></a>
+        <a th:href="@{/chung.go}"><div class="inner">충청도</div></a>
+        <a th:href="@{/gyeong.go}"><div class="inner">경상도</div></a>
+        <a th:href="@{/jeon.go}"><div class="inner">전라도</div></a>
+        <a th:href="@{/jeju.go}"><div class="inner">제주도</div></a>
+        <a th:href="@{/talk.go}"><div class="outer">재잘재잘</div></a>
+        <a th:href="@{/photo.go}"><div class="outer hpoint">여행사진</div></a>
+    </div>
+    <div class="board_wrap">
+        <div class="board_list_wrap">
+            <th:block th:if="${count == 0}">
+                <div class="no_post">글이 없습니다.</div>
+            </th:block>
+            <div th:each="b : ${msgs}">
+                <div class="photo_list">
+                    <div class="photo_li">
+                        <a th:href="@{/board.view.go(b_no=${b.b_no})}">
+                            <div class="photo_img">
+                                <img class="pic" th:src="@{'resources/img/' + ${b.b_photo}}">
+                            </div>
+                        </a>
+                        <div class="photo_title" th:text="${b.b_title}"></div>
+                        <div class="photo_writer" th:text="${b.b_writer}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bt_wrap">
+                <div>
+                    <th:block th:if="${loginMember}">
+                        <a th:href="@{/board.write.go}" class="on" id="write_a">글쓰기</a>
+                    </th:block>
+                </div>
+                <div>
+                    <th:block th:unless="${loginMember}">
+                    <a href="login.go" class="on" id="write_a" th:onclick="alert('로그인 후 사용가능한 기능입니다.');">글쓰기</a>
+                    </th:block>
+                </div>
+            </div>
+            <div class="space_3vw"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

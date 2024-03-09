@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UP_BoardView</title>
+    <script type="text/javascript" src="/js/ValidCheck.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/board.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="nav">
+        <div class="logo"><a href="/">TravelWith</a></div>
+        <div class="menu">
+            <div class="li"><a href="/">Home</a></div>
+            <div class="li"><a href="#">About</a></div>
+            <div class="li"><a href="board.go">Community</a></div>
+            <th:block th:if="${loginMember}">
+                <div class="li"><a href="mypage.update.go">Mypage</a></div>
+                <a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+                </script>
+            </th:block>
+            <th:block th:unless="${loginMember}">
+                <a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div class="login_wrapper">
+    <div class="bw_wrap">
+        <div class="board_title">게시판</div>
+        <div th:each="boards : ${c1}">
+            <div class="board_view_wrap">
+                <div class="board_view">
+                    <input name="token" th:value="${token}" type="hidden">
+                    <div class="title" th:text="${boards.b_title}"></div>
+                    <div class="info">
+                        <dl>
+                            <dt>글쓴이</dt>
+                            <dd th:text="${boards.b_writer}"></dd>
+                        </dl>
+                        <dl>
+                            <dt>작성일</dt>
+                            <dd>
+                                <fmt:formatDate value="${boards.b_regDate}" timeStyle="short" />
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>조회</dt>
+                            <dd th:text="${boards.b_readCounter}"></dd>
+                        </dl>
+                    </div>
+                    <div class="cont">
+                        <img th:src="@{'resources/img/' + ${boards.b_photo}}" /><br/>
+                        <span th:utext="${boards.b_txt}"></span>
+                    </div>
+                </div>
+                <div class="bt_wrap">
+                    <a th:href="@{/board.go}" class="on" id="list_btn">목록</a>
+                    <div th:if="${boards.b_writer == sessionScope.loginMember.u_id}">
+                        <a th:href="@{/board.update.go(b_no=${boards.b_no})}" id="edit_btn">수정</a>
+                        <a th:href="@{/board.delete(b_no=${boards.b_no})}" id="delete_btn">삭제</a>
+                    </div>
+                </div>
+                <div class="board_answer">
+                    <p>
+                        <input name="token" th:value="${token1}" type="hidden">
+                        <div th:if="${sessionScope.loginMember != null}">
+                            <form th:action="@{/board.comment.write}" method="get">
+                                <input name="token" th:value="${token}" type="hidden">
+                                <input name="b_no" th:value="${boards.b_no}" type="hidden">
+                                <div class="cmt_group">
+                                    <div class="profile">
+                                        <input name="c_writer" th:value="${sessionScope.loginMember.u_id}" readonly="readonly">
+                                        &nbsp;님
+                                    </div>
+                                    <br/>
+                                    <input name="c_txt" maxlength="100" placeholder="댓글을 입력하시오." autocomplete="off" id="c_txt" class="form-control">
+                                    <button class="cmt_write_btn">등록</button>
+                                </div>
+                            </form>
+                            <br/>
+                        </div>
+                        <div th:each="tpc : ${boards.b_comment}">
+                            <div class="cmt_wrapper">
+                                <div class="cmt_writer">
+                                    <div th:text="${tpc.c_writer} + ' 님의 댓글'"></div>
+                                    <div class="cmt_txt" th:text="${tpc.c_txt}"></div>
+                                    <div class="cmt_log_date">
+                                        <fmt:formatDate value="${tpc.c_regDate}" type="both" dateStyle="short" timeStyle="short" />
+                                    </div>
+                                </div>
+                                <div th:if="${tpc.c_writer == sessionScope.loginMember.u_id}">
+                                    <div class="cmtBtn">
+                                        <button class="cmBtn" th:onclick="commentUpdate(${tpc.c_no},'${tpc.c_txt}',${tpc.b_no})">수정</button>
+                                        &emsp;|&emsp;
+                                        <button class="cmBtn" th:onclick="|location.href='/board.comment.delete?c_no=${tpc.c_no}&b_no=${tpc.b_no}'|">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+                <div class="space_3vw"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

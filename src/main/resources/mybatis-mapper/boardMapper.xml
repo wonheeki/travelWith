@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="codingon.travelwith.mapper.BoardMapper">
+
+    <select id="getAllBoardCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category not in('재잘재잘','여행사진')
+    </select>
+
+    <select id="getSeoulCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category='서울'
+    </select>
+
+    <select id="getCapCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category='수도권'
+    </select>
+
+    <select id="getGangCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category='강원도'
+    </select>
+
+    <select id="getChungCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category='충청도'
+    </select>
+
+    <select id="getGyeongCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category='경상도'
+    </select>
+
+    <select id="getJeonCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category='전라도'
+    </select>
+
+    <select id="getJejuCount" resultType="Integer">
+        select count(*) from
+        tw_board, tw_member where b_writer = u_id and b_category='제주도'
+    </select>
+
+    <select id="getMyPostCount" resultType="Integer" parameterType="codingon.travelwith.domain.Board">
+        select count(*) from
+        tw_board, tw_member where b_writer=(select u_id from tw_member where u_id =#{u_id}) and b_category not in('재잘재잘','여행사진')
+    </select>
+
+    <select id="getMyPhotoCount" resultType="Integer" parameterType="codingon.travelwith.domain.Board">
+        select count(*) from
+        tw_board, tw_member where b_writer=(select u_id from tw_member where u_id =#{u_id}) and b_category='여행사진'
+    </select>
+
+    <!-- 게시글 조회수 카운팅 -->
+    <update id="readCounterBoard"
+            parameterType="codingon.travelwith.domain.Board">
+        update tw_board set b_readCounter = b_readCounter+1
+        where b_no = #{b_no}
+    </update>
+
+    <!-- 최신순 정렬 -->
+    <select id="getBoard"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category not in ('재잘재잘','여행사진') order by
+        b_regDate desc))
+    </select>
+
+    <!-- 서울 게시판 최신순 정렬 -->
+    <select id="getAllSeoul"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='서울' order by
+        b_regDate desc))
+    </select>
+
+    <!-- 수도권 게시판 최신순 정렬 -->
+    <select id="getAllCap"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='수도권' order by
+        b_regDate desc))
+    </select>
+
+    <!-- 강원도 게시판 최신순 정렬 -->
+    <select id="getAllGang"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='강원도' order by
+        b_regDate desc))
+    </select>
+
+    <!-- 충청도 게시판 최신순 정렬 -->
+    <select id="getAllChung"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='충청도' order by
+        b_regDate desc))
+    </select>
+
+    <!-- 경상도 게시판 최신순 정렬 -->
+    <select id="getAllGyeong"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='경상도' order by
+        b_regDate desc))
+    </select>
+
+    <!-- 전라도 게시판 최신순 정렬 -->
+    <select id="getAllJeon"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='전라도' order by
+        b_regDate desc))
+    </select>
+
+    <!-- 제주도 게시판 최신순 정렬 -->
+    <select id="getAllJeju"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='제주도' order by
+        b_regDate desc))
+    </select>
+
+
+    <!-- 사진첩 게시판 최신순 정렬 -->
+    <select id="getAllPhoto"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_photo,
+        b_writer from(
+        select * from TW_BOARD where b_category='여행사진' order by
+        b_regDate desc))
+    </select>
+
+
+    <!-- 선택한 게시글 불러오기 -->
+    <select id="getAllBoard"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from tw_board where b_no = #{b_no}
+    </select>
+
+    <!-- 게시글 작성 -->
+    <insert id="writeBoard"
+            parameterType="codingon.travelwith.domain.Board">
+<!--        insert into tw_board values( #{b_title},#{u_id},#{b_photo},#{b_category}, #{b_txt},sysdate, 0)-->
+        INSERT INTO tw_board (b_title, b_writer, b_photo, b_category, b_txt, b_regDate, b_readCounter)
+        VALUES (#{b_title}, #{u_id}, #{b_photo}, #{b_category}, #{b_txt}, CURDATE(), 0);
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="updateBoard"
+            parameterType="codingon.travelwith.domain.Board">
+        update tw_board set b_title=#{b_title, jdbcType=VARCHAR} , b_photo = #{b_photo, jdbcType=VARCHAR}, b_category=#{b_category, jdbcType=VARCHAR}, b_txt = #{b_txt, jdbcType=VARCHAR} where b_no = #{b_no}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id = "deleteBoard"
+            parameterType="codingon.travelwith.domain.Board">
+        delete from tw_board where b_no = #{b_no}
+    </delete>
+
+
+
+
+    <!-- 재잘재잘 게시판 최신순 정렬 -->
+    <select id="getAllTalk"
+            parameterType="codingon.travelwith.domain.Board"
+            resultType="codingon.travelwith.domain.Board">
+        select * from(
+        select rownum as rn, b_no, b_title, b_txt,
+        b_writer, b_regDate,
+        b_readCounter from(
+        select * from TW_BOARD where b_category='재잘재잘' order by
+        b_regDate desc))
+    </select>
+
+    <!-- 재잘재잘 작성 -->
+    <insert id="writeTalk"
+            parameterType="codingon.travelwith.domain.Board">
+        insert into tw_board values(tw_b_no_seq.nextval,'1',#{u_id},'1','재잘재잘', #{b_txt},sysdate, 0)
+    </insert>
+
+    <!-- 재잘재잘 수정 -->
+    <update id="updateTalk"
+            parameterType="codingon.travelwith.domain.Board">
+        update tw_board set b_txt = #{b_txt} where b_no = #{b_no}
+    </update>
+
+
+
+
+    <!-- 댓글쓰기 -->
+    <insert id="writeComment" parameterType="codingon.travelwith.domain.Board">
+        insert into tw_comment values(tw_c_no_seq.nextval,#{b_no},#{c_writer},sysdate,#{c_txt}) </insert>
+
+    <!-- 댓글삭제 -->
+    <delete id="deleteComment" parameterType="codingon.travelwith.domain.Board">
+        delete from tw_comment where c_no= #{c_no} </delete>
+
+    <!-- 댓글수정 -->
+    <update id="updateComment" parameterType="codingon.travelwith.domain.Board">
+        update tw_comment set c_txt=#{c_txt} where c_no= #{c_no} </update>
+
+    <!-- 댓글 불러오기 -->
+    <select id="getComment"  resultType="codingon.travelwith.domain.Board" parameterType="codingon.travelwith.domain.Board">
+        select * from tw_comment where b_no =#{b_no}
+    </select>
+
+
+
+
+    <!-- 마이페이지 내가 쓴 글 보기 -->
+    <select id="getMyBoard" resultType="codingon.travelwith.domain.Board" parameterType="codingon.travelwith.domain.Board">
+        select rownum as rn, b_no, b_title, b_writer, b_regDate, b_readCounter, b_category
+        from tw_board
+        where b_writer=(select u_id from tw_member where u_id =#{u_id}) and b_category not in('여행사진','재잘재잘') order by b_regDate desc
+    </select>
+
+    <!-- 마이페이지 내 사진첩 보기 -->
+    <select id="getMyPhoto" resultType="codingon.travelwith.domain.Board" parameterType="codingon.travelwith.domain.Board">
+        select rownum as rn, b_no, b_title, b_writer,b_regDate,b_photo
+        from tw_board
+        where b_writer=(select u_id from tw_member where u_id =#{u_id}) and b_category='여행사진' order by b_regDate desc
+    </select>
+
+</mapper>

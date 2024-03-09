@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="/js/ValidCheck.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/board.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="nav">
+        <div class="logo"><a href="/">TravelWith</a></div>
+        <div class="menu">
+            <div class="li"><a href="/">Home</a></div>
+            <div class="li"><a href="#">About</a></div>
+            <div class="li"><a href="board.go">Community</a></div>
+            <th:block th:if="${loginMember}">
+                <div class="li"><a href="mypage.update.go">Mypage</a></div>
+                <a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+                </script>
+            </th:block>
+            <th:block th:unless="${loginMember}">
+                <a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div class="login_wrapper">
+    <div class="category">
+        <div class="board_title">Community</div>
+        <a th:href="@{/board.go}"><div class="outer">전체</div></a>
+        <a th:href="@{/seoul.go}"><div class="inner">서울</div></a>
+        <a th:href="@{/cap.go}"><div class="inner">수도권</div></a>
+        <a th:href="@{/gang.go}"><div class="inner">강원도</div></a>
+        <a th:href="@{/chung.go}"><div class="inner">충청도</div></a>
+        <a th:href="@{/gyeong.go}"><div class="inner">경상도</div></a>
+        <a th:href="@{/jeon.go}"><div class="inner">전라도</div></a>
+        <a th:href="@{/jeju.go}"><div class="inner">제주도</div></a>
+        <a th:href="@{/talk.go}"><div class="outer hpoint">재잘재잘</div></a>
+        <a th:href="@{/photo.go}"><div class="outer">여행사진</div></a>
+    </div>
+    <div class="board_wrap">
+        <div class="board_list_wrap">
+            <th:block th:if="${count == 0}">
+                <div class="no_post">글이 없습니다.</div>
+            </th:block>
+            <div class="talk_write">
+                <form th:action="@{/board.talk.write}" method="post" enctype="multipart/form-data">
+                    <input name="token" th:value="${token}" type="hidden">
+                    <input type="text" placeholder="${sessionScope.loginMember.u_id} 님 피드를 작성하세요" name="b_txt">
+                    <div>
+                        <th:block th:if="${loginMember}">
+                        <button id="talk_write_btn">등록</button>
+                        </th:block>
+                    </div>
+                    <div>
+                        <th:block th:unless="${loginMember}">
+                            <button id="talk_write_btn" th:onclick="alert('로그인 후 사용가능한 기능입니다.');">등록</button>
+                        </th:block>
+                    </div>
+                </form>
+            </div>
+            <div th:each="boards : ${c1}">
+                <div class="talk_view_wrap">
+                    <div class="talk_view">
+                        <input name="token" th:value="${token}" type="hidden">
+                        <div class="talk_writer" th:text="${boards.b_writer} + ' 님'"></div>
+                        <div class="talk_regdate">
+<!--                            <fmt:formatDate value="${boards.b_regDate}" type="both" dateStyle="short" timeStyle="short" />-->
+                        </div>
+                        <div class="talk_txt" th:text="${boards.b_txt}"></div>
+                    </div>
+                    <div th:if="${boards.b_writer == sessionScope.loginMember.u_id}">
+                        <button type="button" class="talk_update" th:onclick="change(this);">수정</button>
+                        <div class="popup">
+                            <form th:action="@{/talk.update}" method="get" enctype="multipart/form-data">
+                                <input name="b_no" type="hidden" th:value="${boards.b_no}">
+                                <input class="update_input" th:value="${boards.b_txt}" name="b_txt" type="text">
+                                <button class="update_submit">확인</button>
+                            </form>
+                        </div>
+                        <div class="talk_btn_wrap">
+                            &emsp;|&emsp;
+                            <a id="talk_delete_btn" th:href="@{/talk.delete(b_no=${boards.b_no})}">삭제</a>
+                        </div>
+                    </div>
+                    <div class="reply_toggle">
+                        <button type="button" class="collapsible" th:onclick="collapse(this);">댓글</button>
+                        <div class="content">
+                            <div class="talk_answer">
+                                <p>
+                                    <input name="token" th:value="${token1}" type="hidden">
+                                    <div>
+                                    <th:block th:if="${loginMember}">
+                                        <form th:action="@{/talk.comment.write}" method="get">
+                                            <input name="token" th:value="${token}" type="hidden">
+                                            <input name="b_no" th:value="${boards.b_no}" type="hidden">
+                                            <div class="cmt_group">
+                                                <div class="talk_profile">
+                                                    <input name="c_writer" th:value="${sessionScope.loginMember.u_id}" readonly="readonly" type="hidden">
+                                                    <span class="highlight" th:text="${sessionScope.loginMember.u_id} + ' 님'"></span>
+                                                </div>
+                                                <br>
+                                                <input name="c_txt" maxlength="100" placeholder="댓글을 입력하시오." autocomplete="off" id="c_txt" class="talk-form-control">
+                                                <button class="talk_cmt_write_btn">등록</button>
+                                            </div>
+                                        </form>
+                                        <br>
+                                    </th:block>
+                                    </div>
+                                    <div th:each="tpc : ${boards.b_comment}">
+                                        <div class="talk_cmt_wrapper">
+                                            <div class="talk_cmt_writer">
+                                                <div class="talk_cmt_id">ㄴ&emsp;${tpc.c_writer} 님의 댓글</div>
+                                                <div class="talk_cmt_log_date">
+                                                    <fmt:formatDate value="${tpc.c_regDate}" type="both" dateStyle="short" timeStyle="short" />
+                                                </div>
+                                                <div class="talk_cmt_txt" th:text="${tpc.c_txt}"></div>
+                                            </div>
+                                            <div th:if="${tpc.c_writer == sessionScope.loginMember.u_id}">
+                                                <div class="cmtBtn">
+                                                    <button class="talk_cmBtn" th:onclick="talkCommentUpdate(${tpc.c_no},'${tpc.c_txt}',${tpc.b_no})">수정</button>
+                                                    &emsp;|&emsp;
+                                                    <button class="cmBtn" th:onclick="|location.href='talk.comment.delete?c_no=${tpc.c_no}&b_no=${tpc.b_no}'|">삭제</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space_3vw"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

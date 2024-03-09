@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/result.css">
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="nav">
+		<div class="logo"><a href="/">TravelWith</a></div>
+		<div class="menu">
+			<div class="li"><a href="/">Home</a></div>
+			<div class="li"><a href="#">About</a></div>
+			<div class="li"><a href="board.go">Community</a></div>
+			<th:block th:if="${loginMember}">
+				<div class="li"><a href="mypage.update.go">Mypage</a></div>
+				<a href="member.logout"><div class="li" id="logout_btn">Log out</div></a>
+				<script type="text/javascript">
+					document.addEventListener("DOMContentLoaded", function() {
+                    var logoutBtn = document.getElementById("logout_btn");
+
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", function() {
+                            alert("로그아웃 되었습니다.");
+                        });
+                    }
+                });
+				</script>
+			</th:block>
+			<th:block th:unless="${loginMember}">
+				<a href="login.go"><div class="li" id="signin_btn">Sign In</div></a>
+			</th:block>
+		</div>
+	</div>
+</div>
+	<div class="login_wrapper">
+		<form id="find-form" method="GET" action="member.goResultID"
+			class="find_form">
+<!-- 		<form id="find-form" method="GET" action="member.goResultID"
+			name="signup_form" onsubmit="return checkValid();" class="find_form"> -->
+
+			<div class="title">FIND ID</div>
+			<input type="text" class="find_input" placeholder="Enter your nickname"
+				id="u_nickname" maxlength="10" name="u_nickname"> <input
+				type="email" class="find_input" placeholder="Enter your email"
+				id="u_email" name="u_email">
+
+			<button class="login_btn">SUBMIT</button>
+
+		</form>
+	</div>
+</body>
+</html>
